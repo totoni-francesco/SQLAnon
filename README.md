@@ -10,7 +10,7 @@
 *Non obbligatorie:*
 
 - nameschema (Nome dello schema, di default impostato come public)
-- randomtype (Tipologia di anonimizzazione utilizzando il package Faker, di default impostato come line, ovvero genera una riga della stessa lunghezza ma con caratteri casuali)
+- randomtype (Tipologia di anonimizzazione utilizzando il package Faker, di default impostato come line, ovvero genera una riga della stessa lunghezza ma con caratteri casuali (https://faker.readthedocs.io/en/master)
 - linked_to (Specifica che la colonna è collegata ad un’altra, utilizzando quindi la stessa anonimizzazione dell’altra colonna, di default impostato come None, quindi non collegata)
 
 *Esempio:*
