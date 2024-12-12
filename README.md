@@ -1,6 +1,6 @@
 # SQLAnon
 
-##Lo script presenta 5 campi (2 obbligatori da specificare e 3 con valori di default)
+**_Lo script presenta 5 campi (2 obbligatori da specificare e 3 con valori di default)_**
 
 *Obbligatorie:*
 
