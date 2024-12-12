@@ -13,8 +13,8 @@ fake=Faker()
 logging.basicConfig(level=logging.DEBUG, filename="py_log.log", filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
 
-db_name = "dataset.db"
-sql_name = "dumpc.sql"
+db_name = "dataset.db"  #Nome del dataset in cui verranno inserite le modifiche
+sql_name = "Sql_name"  #Nome del dump da modificare
 masking_table = {}
 
 
@@ -79,6 +79,7 @@ def get_column_names(table):
 
 
 def parse_specific_value(file_path, field_name):
+#Viene letto lo script riga per riga
     collection = []
     pattern = r"<(.*?)>"
 
@@ -127,7 +128,7 @@ def parse_specific_value(file_path, field_name):
 
 
 def create_dataset(lines, conn, cursor):
-    """Crea o aggiorna tabelle nel database SQLite."""
+#Crea o aggiorna tabelle nel database SQLite.
     for i in range(0, len(lines), 2):
         table_name = lines[i].strip("{}").strip("'")
         values = lines[i + 1]
@@ -176,6 +177,7 @@ def create_dataset(lines, conn, cursor):
 
 
 def dataset_insert(lines, cursor, rtype, columnnames, completenames, links):
+#Vengono inseriti i dati nel dataset
     logging.info("Inizio dell'inserimento dei valori.")
     copy_found = False
 
@@ -289,6 +291,7 @@ def dataset_insert(lines, cursor, rtype, columnnames, completenames, links):
 
 
 def random_values(cursor, line, rtype, columnnames, completenames, col, links):
+#Funzione per la randomizzazione
     try:
         check=''
         if isinstance(line, str):   #Se si tratta di un INSERT INTO
@@ -399,6 +402,7 @@ def random_values(cursor, line, rtype, columnnames, completenames, col, links):
 
 
 def rnd_type(value, randomtype, fake):
+#Funzione per aggiungere altri tipi di randomizzazione
     match randomtype:
         case 'line':
             randomized = []
@@ -430,6 +434,7 @@ def rnd_type(value, randomtype, fake):
 
 
 def get_clean_column(table_column):
+#Funzione per ricavare solamente i nomi delle colonne
     try:
         colu = [col.split()[0] for col in table_column]
         nuova_columns_definition = []
@@ -448,6 +453,7 @@ def get_clean_column(table_column):
 
 
 def replace(line, cursor, columns, name):
+#Funzione per rimpiazzare la linea originale con quella fittizia
     try:
         # Ottieni i nomi delle colonne originali e delle colonne modificate
         column = [s.split()[0] if s.strip() else '' for s in columns]
@@ -494,6 +500,7 @@ def replace(line, cursor, columns, name):
 
 
 def transform(lista, table, cursor):
+#Viene creata la riga da eseguire con SQLite
     try:
         # Modifica gli elementi della lista sostituendo None con NULL e aggiungendo gli apici
         for i in range(len(lista)):
@@ -528,6 +535,7 @@ def transform(lista, table, cursor):
 
 
 def get_value(line, table, columns, cursor):
+#Se già presenti, ricava i valori dal dataset
     try:
         conc = ''
         lista = line.split("\t")
